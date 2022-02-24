@@ -7,6 +7,8 @@
         <patrones>
             <patron codigo="cod11">WBWBWWWB</patron>
             <patron codigo="cod12">BWBWWWWW</patron>
+            <patron codigo="cod13">BWBBBWWW</patron>
+            <patron codigo="cod14">BBBWWBBB</patron>
         </patrones>
     </piso>
     <piso nombre="ejemplo02">

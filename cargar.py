@@ -1,11 +1,11 @@
 import xml.etree.ElementTree as ET
-import list
+import lista
 import piso
 import patron
 
 
 
-ListaPisos = list.LinkedList()
+ListaPisos = lista.LinkedList()
 
 
 def leer():
@@ -24,7 +24,7 @@ def leer():
             S = int(root[y][3].text)
             #print(R, C, F, S)
 
-            listaPatrones = list.LinkedList()
+            listaPatrones = lista.LinkedList()
 
             for patronXML in root[y].iter('patron'):
 
@@ -39,14 +39,7 @@ def leer():
     except:
         print(path, " no encontrado")
 
-leer()
-#print(ListaPisos)
 
-for piso in ListaPisos:
-    piso.grafica()
-    
-    for patron in piso.patrones:
-        patron.graficar()
 
 
 

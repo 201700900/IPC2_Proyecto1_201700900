@@ -1,4 +1,9 @@
 import cargar
+import piso
+import patron
+
+global PisoActual
+global PatronDestino
 
 def entrada():
 
@@ -32,15 +37,57 @@ while not salir:
     if opcion == 1:
         cargar.leer()
     elif opcion == 2:
+        n = 0
         for piso in cargar.ListaPisos:
-            piso.grafica()
-            
+            n += 1
+            piso.grafica(n)
+            p = 0
             for patron in piso.patrones:
-                patron.graficar()
+                p += 1
+                patron.graficar(p)
+        
+        sPiso = input("Seleciona el número o el nombre de piso especifico:\n")
+        
+
+        if sPiso.isdigit():
+            PisoActual = cargar.ListaPisos[int(sPiso)-1]
+        else:
+            for piso in cargar.ListaPisos:
+                if piso.nombre == sPiso:
+                    PisoActual = piso
+                else:
+                    pass
+        PisoActual.grafica(sPiso)
+        p=0
+        for patron in PisoActual.patrones:
+                p += 1
+                patron.graficar(p)
+        sPatron = input("Introduzca el número o el código de patrón inicial:\n")
+        if sPatron.isdigit():
+            PisoActual.Origen = PisoActual.patrones[int(sPatron)-1].rows
+            PisoActual.patrones[int(sPatron)-1].graficar(sPatron)
+        else:
+            for patron in PisoActual.patrones:
+                if patron.codigo == sPatron:
+                    PisoActual.Origen = patron.rows
+                    patron.graficar(sPatron)
+
                     
     elif opcion == 3:
-        
-        pass
+        PisoActual.grafica(sPiso)
+        p=0
+        for patron in PisoActual.patrones:
+                p += 1
+                patron.graficar(p)
+        pNuevo = input("Seleciona el número o el código del patrón destino:\n")
+        if pNuevo.isdigit():
+            PatronDestino = PisoActual.patrones[int(pNuevo)-1].rows
+            print(PatronDestino)
+        else:
+            for patron in PisoActual.patrones:
+                if patron.codigo == pNuevo:
+                    PatronDestino = patron.rows 
+        PisoActual.costo(PatronDestino)
     elif opcion == 4:
         pass
     elif opcion == 5:

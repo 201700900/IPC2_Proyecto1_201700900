@@ -47,6 +47,19 @@ class LinkedList:
         String += "]"
         
         return String
+    
+    def __setitem__(self, indice, dato):
+        if indice >= 0 and indice < self.Size:
+            actual = self.First
+
+            for _ in range(indice):
+                actual = actual.Next
+            
+            actual.Value = dato
+        else:
+            return False
+            #raise Exception('Índice no válido. Está por fuera del rango.')
+
    
     def __getitem__(self, index):
         if index >= 0 and index < self.Size:
@@ -55,7 +68,8 @@ class LinkedList:
                 actual = actual.Next
             return actual.Value
         else:
-            raise Exception('Índice no válido. Está por fuera del rango.')
+            return False
+            #raise Exception('Índice no válido. Está por fuera del rango.')
 
     def Append(self, Value): 
         MyNode = Node(Value)
@@ -100,5 +114,63 @@ class LinkedList:
                  return Current.Next
             except AttributeError:
                  return False
+
         
         
+        
+
+    def bubbsort(self):
+        for i in range(self.Size-1):#for controlli
+            Current = self.First
+            nxt=Current.Next
+            prev = None
+        while nxt:#Comparisons in passes
+            if Current.Value > nxt.Value:
+                if prev == None:
+                    prev = Current.Next
+                    nxt = nxt.Next
+                    prev.Next = Current
+                    Current.Value = nxt
+                    self.First = prev
+                else:
+                    temp = nxt
+                    nxt = nxt.Next
+                    prev.Next = Current.Next
+                    prev = temp
+                    temp.link = Current
+                    Current.Next = nxt
+            else:
+            
+                prev = Current
+                Current = nxt
+                nxt = nxt.Next
+        i += 1
+
+# x=0
+# y=0
+# c = LinkedList()
+# f = LinkedList()
+# c.Append('1')
+# c.Append('2')
+# c.Append('3')
+# c.Append('4')
+# f.Append(c)
+# c = LinkedList()
+# c.Append('5')
+# c.Append('6')
+# c.Append('7')
+# c.Append('8')
+# f.Append(c)
+# print(f)
+# print(f[0][0])
+# f[0][0] = 'W'
+# print(f[0][0])
+# print(f)
+# print(f)
+# print(f[x][y])
+# print(f[x][y])
+# f[x+1][y+1] = 'A'
+# f[x+1][y+2] = 'B'
+# f[0][0]='Z'
+# print(f)
+
