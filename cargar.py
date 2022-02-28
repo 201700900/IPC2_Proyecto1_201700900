@@ -10,6 +10,7 @@ ListaPisos = lista.LinkedList()
 
 def leer():
     global ListaPisos
+    ListaPisos = lista.LinkedList()
     path = input("Introduzca la dirreción del XML:\n")
     try:
         tree = ET.parse('ejemplo.xml')
