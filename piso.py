@@ -1,4 +1,5 @@
 import lista
+import graph
 
 
 class Piso(): 
@@ -78,6 +79,7 @@ class Piso():
     def costo(self, nuevo):
         self.iter = 0
         self.precio = 0
+        graph.graph(self.Origen, 'patron-Origen')
         self.gRows(self.Origen, "Patrón inicial: ")
         self.gRows(nuevo, "Patrón destino: ")
         while (not self.igual(nuevo)):
@@ -97,7 +99,8 @@ class Piso():
                 self.cambiar(nuevo)
 
         self.gRows(nuevo, "Por lo tanto, se necesitan ${0}.00 como mínimo para transformar el patrón inicial al patrón final.".format(self.precio))
-
+        graph.graph(self.Destino, 'patron-Destino')
+        self.cOrigen = self.cDestino
             
         
        
@@ -117,41 +120,40 @@ class Piso():
             
             for x in range(0, len(self.Origen[y])):
 
+                if self.Origen[y][x+1] is not False and self.Origen[y][x] == nuevo[y][x+1] and self.Origen[y][x+1] != nuevo[y][x+1] and self.Origen[y][x] != nuevo[y][x]:
+                    self.Origen[y][x] = nuevo[y][x]
+                    self.iter+=1
+                    self.Origen[y][x+1] = nuevo[y][x+1]
+                    self.gRows(self.Origen, "{5}. Se ha intercambiado piso ({0}, {1}) por ({2}, {3}), y costó: ${4}.00".format(y+1, x+1, y+1, x+2, self.S, self.iter))
+                    self.precio+=self.S 
+            
+                elif self.Origen[y+1] is not False and self.Origen[y][x] == nuevo[y+1][x] and self.Origen[y+1][x] != nuevo[y+1][x] and self.Origen[y][x] != nuevo[y][x]:
+                    self.Origen[y][x] = nuevo[y][x]
+                    self.iter+=1
+                    self.Origen[y+1][x] = nuevo[y+1][x]
+                    self.gRows(self.Origen, "{5}. Se ha intercambiado piso ({0}, {1}) por ({2}, {3}), y costó: ${4}.00".format(y+1, x+1, y+2, x+1, self.S, self.iter))
+                    self.precio+=self.S
 
-                    if self.Origen[y][x+1] is not False and self.Origen[y][x] == nuevo[y][x+1] and self.Origen[y][x+1] != nuevo[y][x+1] and self.Origen[y][x] != nuevo[y][x]:
+                elif self.Origen[y][x-1] is not False and self.Origen[y][x] == nuevo[y][x-1] and self.Origen[y][x-1] != nuevo[y][x-1] and self.Origen[y][x] != nuevo[y][x]:
+                    self.Origen[y][x] = nuevo[y][x]
+                    self.iter+=1
+                    self.Origen[y][x-1] = nuevo[y][x-1]
+                    self.gRows(self.Origen, "{5}. Se ha intercambiado piso ({0}, {1}) por ({2}, {3}), y costó: ${4}.00".format(y+1, x+1, y+1, x, self.S, self.iter))
+                    self.precio+=self.S 
+
+                elif self.Origen[y-1] is not False and self.Origen[y][x] == nuevo[y-1][x] and self.Origen[y-1][x] != nuevo[y-1][x] and self.Origen[y][x] != nuevo[y][x]:
+                    self.Origen[y][x] = nuevo[y][x]
+                    self.iter+=1
+                    self.Origen[y-1][x] = nuevo[y-1][x]
+                    self.gRows(self.Origen, "{5}. Se ha intercambiado piso ({0}, {1}) por ({2}, {3}), y costó: ${4}.00".format(y+1, x+1, y, x+1, self.S, self.iter))
+                    self.precio+=self.S
+
+                else:
+                    if self.Origen[y][x] != nuevo[y][x]:
                         self.Origen[y][x] = nuevo[y][x]
                         self.iter+=1
-                        self.Origen[y][x+1] = nuevo[y][x+1]
-                        self.gRows(self.Origen, "{5}. Se ha intercambiado piso ({0}, {1}) por ({2}, {3}), y costó: ${4}.00".format(y+1, x+1, y+1, x+2, self.S, self.iter))
-                        self.precio+=self.S 
-                
-                    elif self.Origen[y+1] is not False and self.Origen[y][x] == nuevo[y+1][x] and self.Origen[y+1][x] != nuevo[y+1][x] and self.Origen[y][x] != nuevo[y][x]:
-                        self.Origen[y][x] = nuevo[y][x]
-                        self.iter+=1
-                        self.Origen[y+1][x] = nuevo[y+1][x]
-                        self.gRows(self.Origen, "{5}. Se ha intercambiado piso ({0}, {1}) por ({2}, {3}), y costó: ${4}.00".format(y+1, x+1, y+2, x+1, self.S, self.iter))
-                        self.precio+=self.S
-
-                    elif self.Origen[y][x-1] is not False and self.Origen[y][x] == nuevo[y][x-1] and self.Origen[y][x-1] != nuevo[y][x-1] and self.Origen[y][x] != nuevo[y][x]:
-                        self.Origen[y][x] = nuevo[y][x]
-                        self.iter+=1
-                        self.Origen[y][x-1] = nuevo[y][x-1]
-                        self.gRows(self.Origen, "{5}. Se ha intercambiado piso ({0}, {1}) por ({2}, {3}), y costó: ${4}.00".format(y+1, x+1, y+1, x, self.S, self.iter))
-                        self.precio+=self.S 
-
-                    elif self.Origen[y-1] is not False and self.Origen[y][x] == nuevo[y-1][x] and self.Origen[y-1][x] != nuevo[y-1][x] and self.Origen[y][x] != nuevo[y][x]:
-                        self.Origen[y][x] = nuevo[y][x]
-                        self.iter+=1
-                        self.Origen[y-1][x] = nuevo[y-1][x]
-                        self.gRows(self.Origen, "{5}. Se ha intercambiado piso ({0}, {1}) por ({2}, {3}), y costó: ${4}.00".format(y+1, x+1, y, x+1, self.S, self.iter))
-                        self.precio+=self.S
-
-                    else:
-                        if self.Origen[y][x] != nuevo[y][x]:
-                            self.Origen[y][x] = nuevo[y][x]
-                            self.iter+=1
-                            self.gRows(self.Origen, "{3}. Se ha volteado ({0}, {1}), y costó: ${2}.00".format(y+1, x+1, self.F, self.iter))
-                            self.precio+=self.F 
+                        self.gRows(self.Origen, "{3}. Se ha volteado ({0}, {1}), y costó: ${2}.00".format(y+1, x+1, self.F, self.iter))
+                        self.precio+=self.F 
                     
                  
         

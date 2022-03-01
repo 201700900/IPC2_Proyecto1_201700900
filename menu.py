@@ -2,6 +2,7 @@ import cargar
 import piso
 import patron
 
+
 PisoActual = piso.Piso('N', 1, 1, 1, 1)
 global PatronDestino
 sPiso=0
@@ -126,13 +127,14 @@ while not salir:
                 PatronDestino = PisoActual.patrones[int(pNuevo)-1].rows
                 PisoActual.Destino = PisoActual.patrones[int(pNuevo)-1].rows
                 PisoActual.cDestino = PisoActual.patrones[int(pNuevo)-1].codigo
-                print(PatronDestino)
             else:
                 for patron in PisoActual.patrones:
                     if patron.codigo == pNuevo:
                         PatronDestino = patron.rows 
                         PisoActual.Destino = patron.rows 
             PisoActual.costo(PatronDestino)
+
+            
         except:
             print("Patrón "+ pNuevo, " no encontrado")
     elif opcion == 4:
