@@ -108,29 +108,4 @@ class LinkedList:
 
         
         
-        
-
-   
-
-# x=0
-# y=0
-# c = LinkedList()
-# f = LinkedList()
-# c.Append('1')
-# c.Append('2')
-# c.Append('3')
-# c.Append('4')
-# f.Append(c)
-# c = LinkedList()
-# c.Append('5')
-# c.Append('6')
-# c.Append('7')
-# c.Append('8')
-# f.Append(c)
-# print(f)
-# print(len(f))
-# for y in range(0, len(f)):
-#     print("y = "+str(y))
-#     print("len = "+str(len(f[y])))
-#     for x in range(0, len(f[y])):
-#         print("x = "+str(x))
+ 
