@@ -157,4 +157,3 @@ while not salir:
 
 print ("Fin")
 
-entrada()
