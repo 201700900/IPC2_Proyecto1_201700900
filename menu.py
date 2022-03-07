@@ -12,6 +12,14 @@ def setNuevo():
     global PisoActual
     global sPiso
     try:
+        n = 0
+        for piso in cargar.ListaPisos:
+            n += 1
+            piso.grafica(n)
+            p = 0
+            for patron in piso.patrones:
+                p += 1
+                patron.graficar(p)
         sPiso = input("Seleciona el número o el nombre de piso especifico:\n")
         if sPiso.isdigit():
             PisoActual = cargar.ListaPisos[int(sPiso)-1]
@@ -81,7 +89,8 @@ while not salir:
     print("------------------------------------------------------------------------------------------")
     print("Elija una opción.")
     print ("1. Cargar XML")
-    print ("2. Mostrar Patron")
+    print ("2. Mostrar Patron Actual")
+    print ("   2.1. Seleccionar Piso Actual")
     print ("3. Seleccionar nuevo patron")
     print ("4. Ordenar pisos cargados")
     print ("5. Salir")
@@ -102,53 +111,55 @@ while not salir:
                 setNuevo()
             
         elif cargar.ListaPisos.Size > 0 and PisoActual.nombre == "":
-            n = 0
-            for piso in cargar.ListaPisos:
-                n += 1
-                piso.grafica(n)
-                p = 0
-                for patron in piso.patrones:
-                    p += 1
-                    patron.graficar(p)
             setNuevo()
         else:
-            pass
+            print("\033[;31m"+ 'Error: No hay pisos cargados aún. \033[0;m')
+         
         
                     
     elif opcion == 3:
-        PisoActual.grafica(sPiso)
-        p=0
-        for patron in PisoActual.patrones:
-                p += 1
-                patron.graficar(p)
-        try:
-            pNuevo = input("Seleciona el número o el código del patrón destino:\n")
-            if pNuevo.isdigit():
-                PatronDestino = PisoActual.patrones[int(pNuevo)-1].rows
-                PisoActual.Destino = PisoActual.patrones[int(pNuevo)-1].rows
-                PisoActual.cDestino = PisoActual.patrones[int(pNuevo)-1].codigo
-            else:
-                for patron in PisoActual.patrones:
-                    if patron.codigo == pNuevo:
-                        PatronDestino = patron.rows 
-                        PisoActual.Destino = patron.rows 
-            PisoActual.costo(PatronDestino)
-
-            
-        except:
-            print("Patrón "+ pNuevo, " no encontrado")
-    elif opcion == 4:
- 
-        ordenarPisos()
-        ordenarPatrones()
-        n=0
-        for piso in cargar.ListaPisos:
-                n += 1
-                piso.grafica(n)
-                p = 0
-                for patron in piso.patrones:
+        if cargar.ListaPisos.Size > 0 and PisoActual.nombre != "":
+            PisoActual.grafica(sPiso)
+            p=0
+            for patron in PisoActual.patrones:
                     p += 1
                     patron.graficar(p)
+            try:
+                pNuevo = input("Seleciona el número o el código del patrón destino:\n")
+                if pNuevo.isdigit():
+                    PatronDestino = PisoActual.patrones[int(pNuevo)-1].rows
+                    PisoActual.Destino = PisoActual.patrones[int(pNuevo)-1].rows
+                    PisoActual.cDestino = PisoActual.patrones[int(pNuevo)-1].codigo
+                else:
+                    for patron in PisoActual.patrones:
+                        if patron.codigo == pNuevo:
+                            PatronDestino = patron.rows 
+                            PisoActual.Destino = patron.rows 
+                PisoActual.costo(PatronDestino)
+
+                
+            except:
+                print("Patrón "+ pNuevo, " no encontrado")
+        elif cargar.ListaPisos.Size > 0 and PisoActual.nombre == "":
+            print("\033[;31m"+ 'Error: No hay piso ni patrón actual. \033[0;m')
+        else:
+             print("\033[;31m"+ 'Error: No hay pisos cargados aún. \033[0;m')
+        
+    elif opcion == 4:
+        if cargar.ListaPisos.Size > 0 and PisoActual.nombre != "":
+            ordenarPisos()
+            ordenarPatrones()
+            n=0
+            for piso in cargar.ListaPisos:
+                    n += 1
+                    piso.grafica(n)
+                    p = 0
+                    for patron in piso.patrones:
+                        p += 1
+                        patron.graficar(p)
+        else:
+             print("\033[;31m"+ 'Error: No hay pisos cargados aún. \033[0;m')
+        
         
     elif opcion == 5:
         salir = True
@@ -157,3 +168,4 @@ while not salir:
 
 print ("Fin")
 
+ 
