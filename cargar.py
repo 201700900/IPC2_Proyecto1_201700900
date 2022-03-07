@@ -13,7 +13,7 @@ def leer():
     ListaPisos = lista.LinkedList()
     path = input("Introduzca la dirreción del XML:\n")
     try:
-        tree = ET.parse('ejemplo.xml')
+        tree = ET.parse(path)
         root = tree.getroot()
 
         for y in range(0, len(root)):
@@ -37,9 +37,10 @@ def leer():
 
             ListaPisos.Append(piso.Piso(str(nombrePiso['nombre']), R, C, F, S, listaPatrones))
 
-    except:
-        print(path, " no encontrado")
+        print("\033[;32m"+ path + " cargado con exito"+'\033[0;m')
 
+    except:
+        print("\033[;31m"+ path, "no encontrado"+'\033[0;m')
 
 
 

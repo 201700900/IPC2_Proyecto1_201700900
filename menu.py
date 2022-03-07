@@ -3,7 +3,7 @@ import piso
 import patron
 
 
-PisoActual = piso.Piso('N', 1, 1, 1, 1)
+PisoActual = piso.Piso('', 0, 0, 0, 0)
 global PatronDestino
 sPiso=0
 
@@ -83,7 +83,7 @@ while not salir:
     print ("1. Cargar XML")
     print ("2. Mostrar Patron")
     print ("3. Seleccionar nuevo patron")
-    print ("4. Mostrar pisos cargados")
+    print ("4. Ordenar pisos cargados")
     print ("5. Salir")
     print("~~~~~~")
     print ("Elige una opcion")
@@ -92,7 +92,7 @@ while not salir:
     if opcion == 1:
         cargar.leer()
     elif opcion == 2:
-        if cargar.ListaPisos.Size > 0 and PisoActual.nombre != "N": 
+        if cargar.ListaPisos.Size > 0 and PisoActual.nombre != "": 
             PisoActual.grafica(sPiso)
             p = 0
             PisoActual.gRows(PisoActual.Origen, "Patrón actual código: {}".format(PisoActual.cOrigen))
@@ -101,7 +101,7 @@ while not salir:
             if op == 'S' or op == 's':
                 setNuevo()
             
-        elif cargar.ListaPisos.Size > 0 and PisoActual.nombre == "N":
+        elif cargar.ListaPisos.Size > 0 and PisoActual.nombre == "":
             n = 0
             for piso in cargar.ListaPisos:
                 n += 1
@@ -138,7 +138,7 @@ while not salir:
         except:
             print("Patrón "+ pNuevo, " no encontrado")
     elif opcion == 4:
-
+ 
         ordenarPisos()
         ordenarPatrones()
         n=0
@@ -149,7 +149,7 @@ while not salir:
                 for patron in piso.patrones:
                     p += 1
                     patron.graficar(p)
-        pass
+        
     elif opcion == 5:
         salir = True
     else:
